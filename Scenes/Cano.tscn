@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://Scripts/cano.gd" type="Script" id=1]
+[ext_resource path="res://cano.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 106.632, 887.412 )
+
+[sub_resource type="SegmentShape2D" id=2]
+
+custom_solver_bias = 0.0
+a = Vector2( -1.15161, -296.192 )
+b = Vector2( -5.37479, 253.948 )
+
+[node name="Cano" type="Node2D"]
+
+z/z = 1
+script/script = ExtResource( 1 )
+
+[node name="Cima" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, -1225 )
+transform/scale = Vector2( 3, 8 )
+texture = ExtResource( 2 )
+flip_v = true
+
+[node name="Baixo" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0, 1225 )
+transform/scale = Vector2( 3, 8 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+editor/display_folded = true
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 1.71521, 1086.07 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 1 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, -4.04254, -1089.45 )
+shapes/1/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+transform/pos = Vector2( 1.71521, 1086.07 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="Area2D"]
+
+transform/pos = Vector2( -4.04254, -1089.45 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 1
+
+[node name="Ponto" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 268.309, -9.5562 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ponto"]
+
+transform/pos = Vector2( 268.309, -9.5562 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="body_enter" from="Area2D" to="." method="_on_Area2D_body_enter"]
+
+[connection signal="body_enter" from="Ponto" to="." method="_on_Ponto_body_enter"]
+
+
